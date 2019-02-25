@@ -118,7 +118,7 @@ as
 		spell smallint not null,
 		hesid bigint not null,
 		final_payment money not null,
-		constraint pk_calculated_tariff primary key (rid),
+		constraint pk_calculated_tariff primary key (rid)
 	);
 
 	with CTE
