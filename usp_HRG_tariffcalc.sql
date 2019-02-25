@@ -77,7 +77,8 @@ as
 		speldur int not null,
 		admimeth char(2) not null,
 		classpat tinyint,
-		constraint pk_hes_spell primary key (spid),
+		constraint pk_hes_spell primary key nonclustered (spid),
+		index ix_tariff clustered (HRGcode, spelend)
 	);
 
 	with CTE
