@@ -98,7 +98,8 @@ as
 	ssem_valid varchar(3),
 	ssem_pc float,
 	trf_ssem money,
-	constraint pk_tariff primary key (tid)
+	constraint pk_tariff primary key nonclustered (tid),
+	index ix_tariff clustered (HRGcode, dt_effect, dt_expire)
 	);
 
 	insert into working.tariff
@@ -108,22 +109,22 @@ as
 		 [HRG code]
 		,cast('2017-04-01' as datetime)
 		,cast('2018-04-01' as datetime)
-		,case cast([Outpatient procedure tariff (£)] as varchar(20))
+		,case cast([Outpatient procedure tariff (Â£)] as varchar(20))
 			when '-' then null
-			else cast([Outpatient procedure tariff (£)] as money)
+			else cast([Outpatient procedure tariff (Â£)] as money)
 		 end
-		,case cast([Combined day case   ordinary elective spell tariff (£)] as varchar(20))
-			when '-' then cast([Day case spell tariff (£)] as money)
-			else cast([Combined day case   ordinary elective spell tariff (£)] as money)
+		,case cast([Combined day case   ordinary elective spell tariff (Â£)] as varchar(20))
+			when '-' then cast([Day case spell tariff (Â£)] as money)
+			else cast([Combined day case   ordinary elective spell tariff (Â£)] as money)
 		 end
-		,case cast([Combined day case   ordinary elective spell tariff (£)] as varchar(20))
-			when '-' then cast([Ordinary elective spell tariff (£)] as money)
-			else cast([Combined day case   ordinary elective spell tariff (£)] as money)
+		,case cast([Combined day case   ordinary elective spell tariff (Â£)] as varchar(20))
+			when '-' then cast([Ordinary elective spell tariff (Â£)] as money)
+			else cast([Combined day case   ordinary elective spell tariff (Â£)] as money)
 		 end
-		,cast([Non-elective spell tariff (£)] as money)
+		,cast([Non-elective spell tariff (Â£)] as money)
 		,[Ordinary elective long stay trim point (days)]
 		,[Non-elective long stay trim point (days)]
-		,[Per day long stay payment (for days exceeding trim point) (£)]
+		,[Per day long stay payment (for days exceeding trim point) (Â£)]
 		,[Reduced short stay emergency tariff  applicable?]
 		,case [Reduced short stay emergency tariff  applicable?]
 			when 'no' then null
@@ -131,7 +132,7 @@ as
 		 end
 		,case [Reduced short stay emergency tariff  applicable?]
 			when 'no' then null
-			else cast([Reduced short stay emergency tariff (£)] as money)
+			else cast([Reduced short stay emergency tariff (Â£)] as money)
 		 end
 	from stage.APC_1718
 	UNION ALL -- assuming that tariff tables will always have distinct data rows
@@ -139,22 +140,22 @@ as
 		 [HRG code]
 		,cast('2018-04-01' as datetime)
 		,cast('2019-04-01' as datetime)
-		,case cast([Outpatient procedure tariff (£)] as varchar(20))
+		,case cast([Outpatient procedure tariff (Â£)] as varchar(20))
 			when '-' then null
-			else cast([Outpatient procedure tariff (£)] as money)
+			else cast([Outpatient procedure tariff (Â£)] as money)
 		 end
-		,case cast([Combined day case   ordinary elective spell tariff (£)] as varchar(20))
-			when '-' then 1--cast([Day case spell tariff (£)] as money)
-			else cast([Combined day case   ordinary elective spell tariff (£)] as money)
+		,case cast([Combined day case   ordinary elective spell tariff (Â£)] as varchar(20))
+			when '-' then 1--cast([Day case spell tariff (Â£)] as money)
+			else cast([Combined day case   ordinary elective spell tariff (Â£)] as money)
 		 end
-		,case cast([Combined day case   ordinary elective spell tariff (£)] as varchar(20))
-			when '-' then cast([Ordinary elective spell tariff (£)] as money)
-			else cast([Combined day case   ordinary elective spell tariff (£)] as money)
+		,case cast([Combined day case   ordinary elective spell tariff (Â£)] as varchar(20))
+			when '-' then cast([Ordinary elective spell tariff (Â£)] as money)
+			else cast([Combined day case   ordinary elective spell tariff (Â£)] as money)
 		 end
-		,cast([Non-elective spell tariff (£)] as money)
+		,cast([Non-elective spell tariff (Â£)] as money)
 		,[Ordinary elective long stay trim point (days)]
 		,[Non-elective long stay trim point (days)]
-		,[Per day long stay payment (for days exceeding trim point) (£)]
+		,[Per day long stay payment (for days exceeding trim point) (Â£)]
 		,[Reduced short stay emergency tariff  applicable?]
 		,case [Reduced short stay emergency tariff  applicable?]
 			when 'no' then null
@@ -162,7 +163,7 @@ as
 		 end
 		,case [Reduced short stay emergency tariff  applicable?]
 			when 'no' then null
-			else cast([Reduced short stay emergency tariff (£)] as money)
+			else cast([Reduced short stay emergency tariff (Â£)] as money)
 		end
 	from stage.APC_1819
 	);
